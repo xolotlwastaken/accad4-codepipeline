@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing dependencies...
+      - python3 -m venv .venv
+      - source .venv/bin/activate
+      - pip install --upgrade pip
+      - pip install pytest
+  pre_build:
+    commands:
+      - echo Running pre-build steps...
+      - source .venv/bin/activate && pytest --version
+  build:
+    commands:
+      - echo Running build steps...
+      - source .venv/bin/activate && pytest test_app.py
+  post_build:
+    commands:
+      - echo Build completed successfully.
+artifacts:
+  files:
+    - '**/*'
