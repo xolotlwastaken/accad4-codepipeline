@@ -15,10 +15,15 @@ phases:
   build:
     commands:
       - echo Running build steps...
-      - source .venv/bin/activate && pytest test_app.py
+      - source .venv/bin/activate && pytest tests/test_app.py
+      - chmod +x scripts/*.sh
+      - echo Packaging application...
+      - zip -r app-package.zip . -x "tests/*" "*.git*" "*.log" ".venv/*"
+
   post_build:
     commands:
       - echo Build completed successfully.
 artifacts:
   files:
-    - '**/*'
+    - app-package.zip
+    - '**/*.log'
