@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Add an Item</h2>
+<form method="POST">
+    <label for="item_name">Item Name:</label>
+    <input type="text" id="item_name" name="item_name" required>
+    <button type="submit">Add Item</button>
+</form>
+<a href="{{ url_for('items') }}">Back to Items</a>
+{% endblock %}

@@ -22,6 +22,26 @@ def home():
 def about():
     return render_template('about.html')
 
+@app.route('/items', methods=['GET', 'POST'])
+def items():
+    with sqlite3.connect(DATABASE) as conn:
+        if request.method == 'POST':
+            item_name = request.form['item_name']
+            conn.execute('INSERT INTO items (name) VALUES (?)', (item_name,))
+            conn.commit()
+            return redirect(url_for('items'))
+        
+        cursor = conn.execute('SELECT * FROM items')
+        items = cursor.fetchall()
+    return render_template('items.html', items=items)
+
+@app.route('/add_item', methods=['GET', 'POST'])
+def add_item():
+    if request.method == 'POST':
+        item_name = request.form['item_name']
+        return redirect(url_for('items'))
+    return render_template('add_item.html')
+
 # Error Handling
 @app.errorhandler(404)
 def page_not_found(e):
