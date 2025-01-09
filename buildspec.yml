@@ -18,7 +18,7 @@ phases:
       - source .venv/bin/activate && pytest test_app.py
       - chmod +x scripts/*.sh
       - echo Packaging application...
-      - zip -r app-package.zip . -x "tests/*" "*.git*" "*.log" ".venv/*"
+      - zip -r app-package.zip . -x "test_app.py" "*.git*" "*.log" ".venv/*"
 
   post_build:
     commands:
